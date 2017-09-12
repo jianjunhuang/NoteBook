@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar_layout" />
+
+    <EditText
+        android:id="@+id/add_title_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="title"
+        android:padding="16dp"
+        android:textColor="@color/colorText" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f1f1f1" />
+
+    <EditText
+        android:id="@+id/add_content_edt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="left|top"
+        android:hint="content"
+        android:padding="16dp"
+        android:textColor="@color/colorText" />
+
+</LinearLayout>

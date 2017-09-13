@@ -61,6 +61,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             sp.store("password", AppConfig.SP_PWD_KEY);
             Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

@@ -50,7 +50,7 @@ public class WelcomeActivity extends BaseActivity {
                     finish();
                 }
             }
-        }, 2000);
+        }, 3000);
     }
 
     @Override

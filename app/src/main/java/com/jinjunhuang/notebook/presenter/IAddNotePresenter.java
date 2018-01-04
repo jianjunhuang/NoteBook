@@ -8,7 +8,6 @@ import com.demo.jianjunhuang.mvptools.mvp.IPresenter;
  */
 
 public interface IAddNotePresenter<T> extends IPresenter {
-    void getData(String noteId);
 
     void addToDb(T t);
 }

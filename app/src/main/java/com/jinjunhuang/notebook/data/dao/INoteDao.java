@@ -1,4 +1,4 @@
-package com.jinjunhuang.notebook.db.dao;
+package com.jinjunhuang.notebook.data.dao;
 
 import com.jinjunhuang.notebook.model.bean.NoteListBean;
 

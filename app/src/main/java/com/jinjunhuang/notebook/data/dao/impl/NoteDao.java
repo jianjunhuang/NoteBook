@@ -1,11 +1,10 @@
-package com.jinjunhuang.notebook.db.dao.impl;
+package com.jinjunhuang.notebook.data.dao.impl;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.jinjunhuang.notebook.db.NoteDbOpenHelper;
-import com.jinjunhuang.notebook.db.dao.INoteDao;
+import com.jinjunhuang.notebook.data.NoteDbOpenHelper;
+import com.jinjunhuang.notebook.data.dao.INoteDao;
 import com.jinjunhuang.notebook.model.bean.NoteListBean;
 
 import java.util.ArrayList;

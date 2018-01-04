@@ -50,7 +50,7 @@ public class NoteListPresenter implements INoteListPresenter {
 
             @Override
             public void onFailed(String reason, int errCode) {
-                mView.onFailed(errCode, reason);
+                mView.onFailed();
             }
 
             @Override

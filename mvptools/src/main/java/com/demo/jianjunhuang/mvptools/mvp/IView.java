@@ -6,7 +6,4 @@ package com.demo.jianjunhuang.mvptools.mvp;
  */
 
 public interface IView {
-//    void onSuccess();
-
-    void onFailed(int code, String reason);
 }

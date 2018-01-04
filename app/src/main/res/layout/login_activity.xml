@@ -43,6 +43,25 @@
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:visibility="gone"
+        android:id="@+id/login_input_sure_pwd_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        app:passwordToggleEnabled="true"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_input_sure_pwd_edt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/ic_lock_outline_grey_900_24dp"
+            android:hint="sure password"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/login_btn"
         android:layout_width="wrap_content"

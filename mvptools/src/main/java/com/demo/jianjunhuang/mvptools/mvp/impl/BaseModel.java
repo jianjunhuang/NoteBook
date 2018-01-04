@@ -15,13 +15,4 @@ public class BaseModel implements IModel {
 
     }
 
-    @Override
-    public void setAfterGetData(AfterGetDatas afterGetDatas) {
-
-    }
-
-    @Override
-    public void getDate() {
-
-    }
 }

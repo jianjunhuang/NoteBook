@@ -18,10 +18,18 @@ import com.demo.jianjunhuang.mvptools.integration.BaseActivity;
 import com.demo.jianjunhuang.mvptools.utils.SPUtils;
 import com.jinjunhuang.notebook.R;
 import com.jinjunhuang.notebook.common.AppConfig;
+import com.jinjunhuang.notebook.common.UrlValues;
+import com.jinjunhuang.notebook.data.NoteDbOpenHelper;
 import com.jinjunhuang.notebook.view.fragment.NoteListFragment;
+import com.library.jianjunhuang.okhttputils.okhttputils.OkHttpUtils;
+import com.library.jianjunhuang.okhttputils.okhttputils.callback.JSONCallback;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * @author jianjunhuang.me@foxmail.com
@@ -87,6 +95,25 @@ public class HomepageActivity extends BaseActivity implements View.OnClickListen
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.exit_menu) {
                     SPUtils.instance(AppConfig.SP_USR_INFO_FILE_NAME).clearAll();
+                    deleteDatabase("note.db");
+                    AppConfig.USR = "";
+                    AppConfig.PWD = "";
+                    AppConfig.TOKEN = "";
+                    OkHttpUtils.getInstance().postAsy()
+                            .baseURL(UrlValues.LOGOUT)
+                            .params("userName", AppConfig.USR)
+                            .build()
+                            .execute(new JSONCallback() {
+                                @Override
+                                public void onError(Call call, Exception e) {
+
+                                }
+
+                                @Override
+                                public void onJSON(JSONObject jsonObject) {
+
+                                }
+                            });
                     Intent intent = new Intent(HomepageActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();

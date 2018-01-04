@@ -53,7 +53,7 @@ public class WelcomeView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.notebook_welcome);
-        objectAnimator.setDuration(2000);
+        objectAnimator.setDuration(1000);
         objectAnimator.setInterpolator(new LinearInterpolator());
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
@@ -102,7 +102,7 @@ public class WelcomeView extends View {
             canvas.clipRect(0, 0, centerX, y);
         }
         camera.save();
-        camera.setLocation(0,0,20);
+        camera.setLocation(0, 0, 20);
         camera.rotateY(degree);
         canvas.translate(centerX, centerY);//把投影移动回来
         camera.applyToCanvas(canvas);//投影到 canvas

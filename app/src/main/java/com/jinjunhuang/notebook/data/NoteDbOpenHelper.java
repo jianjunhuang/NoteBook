@@ -1,4 +1,4 @@
-package com.jinjunhuang.notebook.db;
+package com.jinjunhuang.notebook.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

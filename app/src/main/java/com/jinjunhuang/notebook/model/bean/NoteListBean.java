@@ -1,5 +1,8 @@
 package com.jinjunhuang.notebook.model.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,7 +11,7 @@ import java.util.Date;
  *         create on 2017/9/8.
  */
 
-public class NoteListBean {
+public class NoteListBean implements Parcelable {
 
     private String title;
     private String date;
@@ -17,6 +20,30 @@ public class NoteListBean {
     private int isDraft;
     private String noteId;
     private long size;
+
+    public NoteListBean() {
+    }
+
+    protected NoteListBean(Parcel in) {
+        title = in.readString();
+        date = in.readString();
+        content = in.readString();
+        isDraft = in.readInt();
+        noteId = in.readString();
+        size = in.readLong();
+    }
+
+    public static final Creator<NoteListBean> CREATOR = new Creator<NoteListBean>() {
+        @Override
+        public NoteListBean createFromParcel(Parcel in) {
+            return new NoteListBean(in);
+        }
+
+        @Override
+        public NoteListBean[] newArray(int size) {
+            return new NoteListBean[size];
+        }
+    };
 
     public long getSize() {
         return size;
@@ -69,5 +96,20 @@ public class NoteListBean {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(date);
+        dest.writeString(content);
+        dest.writeInt(isDraft);
+        dest.writeString(noteId);
+        dest.writeLong(size);
     }
 }

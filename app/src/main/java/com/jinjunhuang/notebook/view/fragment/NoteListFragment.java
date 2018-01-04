@@ -83,24 +83,19 @@ public class NoteListFragment extends BaseFragment implements NoteListContract.V
     @Override
     protected void initListener() {
         noteListRV.addOnScrollListener(new NoteOnScrollListener());
-        mAdapter.setOnItemPopupMenuClickListener(new NoteListAdapter.OnItemPopupMenuClickListener() {
-            @Override
-            public void onItemPopupMenuClickListener(MenuItem item, int position) {
-                if (item.getItemId() == R.id.del_menu) {
-                    delPos = position;
-                    NoteListBean bean = mList.get(position);
-                    presenter.delNote(bean.getNoteId());
-                }
-            }
-        });
+//        mAdapter.setOnItemPopupMenuClickListener(new NoteListAdapter.OnItemPopupMenuClickListener() {
+//            @Override
+//            public void onItemPopupMenuClickListener(MenuItem item, int position) {
+//                if (item.getItemId() == R.id.del_menu) {
+//                    delPos = position;
+//                    NoteListBean bean = mList.get(position);
+//                    presenter.delNote(bean.getNoteId());
+//                }
+//            }
+//        });
     }
 
     private static final String TAG = "NoteListFragment";
-
-    @Override
-    public void onFailed(int code, String reason) {
-        ToastUtils.show(reason);
-    }
 
     @Override
     public void onSuccess(List<NoteListBean> notes) {
@@ -118,6 +113,11 @@ public class NoteListFragment extends BaseFragment implements NoteListContract.V
     @Override
     public void onDelFailed(String reason) {
         ToastUtils.show(reason);
+    }
+
+    @Override
+    public void onFailed() {
+
     }
 
     @Override

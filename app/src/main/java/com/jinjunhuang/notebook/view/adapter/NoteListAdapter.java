@@ -79,7 +79,7 @@ public class NoteListAdapter extends RecyclerAdapter<NoteListBean> implements Re
         } else {
             bundle.putInt(AppConfig.FEATURE_TAG_KEY, AppConfig.FEATURE_EDIT);
         }
-        bundle.putString(AppConfig.NOTE_ID_KEY, bean.getNoteId());
+        bundle.putParcelable("note", bean);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

@@ -10,7 +10,4 @@ import com.demo.jianjunhuang.mvptools.utils.AfterGetDatas;
 public interface IModel {
     void onDestroy();
 
-    void setAfterGetData(AfterGetDatas afterGetDatas);
-
-    void getDate();
 }

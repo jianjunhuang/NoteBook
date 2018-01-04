@@ -16,17 +16,10 @@ public interface AddNoteContract {
         void onAddSuccess();
 
         void onAddFailed(String reason);
-
-        void onGetDataFailed(String reason);
-
-        void onGetDataSuccess(T t);
-
     }
 
     public interface Model<T> extends IModel {
         void addToDb(T t);
-
-        void getData(String noteId);
 
         void setAfterGetData(AddNoteContract.AfterGetData<T> afterGetData);
     }
@@ -34,10 +27,7 @@ public interface AddNoteContract {
     public interface AfterGetData<T> {
         void onAddSuccess();
 
-        void onGetDataSuccess(T data);
-
         void onAddFailed(String reason);
 
-        void onGetDataFailed(String reason);
     }
 }

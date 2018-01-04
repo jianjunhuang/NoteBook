@@ -31,17 +31,17 @@ public class AddNoteActivity extends BaseActivity implements AddNoteContract.Vie
     private EditText titleEdt;
     private EditText contentEdt;
     private int featureTag = 0;
-    private String noteId;
+    private String noteId = "";
     private AddNotePresenter presenter;
     private AlertDialog dialog;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         presenter = new AddNotePresenter(this);
         presenter.onStart();
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         if (bundle != null) {
-            noteId = bundle.getString(AppConfig.NOTE_ID_KEY);
             featureTag = bundle.getInt(AppConfig.FEATURE_TAG_KEY, 0);
         }
         super.onCreate(savedInstanceState);
@@ -116,9 +116,6 @@ public class AddNoteActivity extends BaseActivity implements AddNoteContract.Vie
                 String title = titleEdt.getText().toString();
                 NoteListBean bean = new NoteListBean();
                 bean.setDate(new Date());
-                if (isEmptyOrNull(noteId)) {
-                    noteId = new Date().toString();
-                }
                 bean.setNoteId(noteId);
                 String content = contentEdt.getText().toString();
                 bean.setContent(content);
@@ -146,9 +143,6 @@ public class AddNoteActivity extends BaseActivity implements AddNoteContract.Vie
                     }
                     NoteListBean bean = new NoteListBean();
                     bean.setDate(new Date());
-                    if (isEmptyOrNull(noteId)) {
-                        noteId = new Date().toString();
-                    }
                     bean.setNoteId(noteId);
                     String content = contentEdt.getText().toString();
                     bean.setContent(content);
@@ -193,11 +187,6 @@ public class AddNoteActivity extends BaseActivity implements AddNoteContract.Vie
     }
 
     @Override
-    public void onFailed(int code, String reason) {
-        //no use
-    }
-
-    @Override
     public void onAddSuccess() {
         ToastUtils.show("save success");
         setToShowStatus();
@@ -209,22 +198,13 @@ public class AddNoteActivity extends BaseActivity implements AddNoteContract.Vie
     }
 
     @Override
-    public void onGetDataFailed(String reason) {
-        ToastUtils.show(reason);
-    }
-
-    @Override
-    public void onGetDataSuccess(NoteListBean noteListBean) {
-        titleEdt.setText(noteListBean.getTitle());
-        contentEdt.setText(noteListBean.getContent());
-    }
-
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (featureTag != AppConfig.FEATURE_ADD) {
-            presenter.getData(noteId);
+            NoteListBean noteListBean = bundle.getParcelable("note");
+            titleEdt.setText(noteListBean.getTitle());
+            contentEdt.setText(noteListBean.getContent());
+            noteId = noteListBean.getNoteId();
         }
     }
 }

@@ -1,7 +1,13 @@
 package com.jinjunhuang.notebook.common;
 
 import com.demo.jianjunhuang.mvptools.integration.BaseApplication;
-import com.jinjunhuang.notebook.db.NoteDbOpenHelper;
+import com.demo.jianjunhuang.mvptools.utils.NetworkUtils;
+import com.jinjunhuang.notebook.data.NoteDbOpenHelper;
+import com.library.jianjunhuang.okhttputils.okhttputils.OkHttpUtils;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /**
  * @author jianjunhuang.me@foxmail.com
@@ -13,5 +19,10 @@ public class NoteBookApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         NoteDbOpenHelper.init(this);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(5000L, TimeUnit.MILLISECONDS)
+                .readTimeout(5000L, TimeUnit.MILLISECONDS);
+        OkHttpUtils.initUtils(builder.build());
+        NetworkUtils.init(this);
     }
 }

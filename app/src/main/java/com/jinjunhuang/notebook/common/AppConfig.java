@@ -17,4 +17,9 @@ public class AppConfig {
     public static final String FRAGMENT_TYPE_KEY = "fragment_type";
     public static final int NOTE_FRAGMENT_TYPE = 0;
     public static final int DRAFT_FRAGMENT_TYPE = 1;
+    public static final String TOKEN_KEY = "token";
+
+    public static String TOKEN = "";
+    public static String USR = "";
+    public static String PWD = "";
 }

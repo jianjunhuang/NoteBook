@@ -1,11 +1,20 @@
 package com.jinjunhuang.notebook.model.impl;
 
-import com.demo.jianjunhuang.mvptools.utils.AfterGetDatas;
-import com.jinjunhuang.notebook.contract.AddNoteContract;
-import com.jinjunhuang.notebook.db.dao.impl.NoteDao;
-import com.jinjunhuang.notebook.model.bean.NoteListBean;
+import android.text.TextUtils;
+import android.util.Log;
 
-import java.util.List;
+import com.demo.jianjunhuang.mvptools.utils.AfterGetDatas;
+import com.jinjunhuang.notebook.common.AppConfig;
+import com.jinjunhuang.notebook.common.UrlValues;
+import com.jinjunhuang.notebook.contract.AddNoteContract;
+import com.jinjunhuang.notebook.data.dao.impl.NoteDao;
+import com.jinjunhuang.notebook.model.bean.NoteListBean;
+import com.library.jianjunhuang.okhttputils.okhttputils.OkHttpUtils;
+import com.library.jianjunhuang.okhttputils.okhttputils.callback.JSONCallback;
+
+import org.json.JSONObject;
+
+import okhttp3.Call;
 
 /**
  * @author jianjunhuang.me@foxmail.com
@@ -28,17 +37,6 @@ public class AddNoteModel implements AddNoteContract.Model<NoteListBean> {
         noteDao = null;
     }
 
-    @SuppressWarnings("unused")
-    @Override
-    public void setAfterGetData(AfterGetDatas afterGetDatas) {
-    }
-
-    @SuppressWarnings("unused")
-    @Override
-    public void getDate() {
-
-    }
-
     @Override
     public void setAfterGetData(AddNoteContract.AfterGetData afterGetDatas) {
         this.afterGetDatas = afterGetDatas;
@@ -46,30 +44,68 @@ public class AddNoteModel implements AddNoteContract.Model<NoteListBean> {
 
     @Override
     public void addToDb(NoteListBean noteListBean) {
-        NoteListBean bean = noteDao.getById(noteListBean.getNoteId());
-        if (bean == null) {
-            if (noteDao.addNote(noteListBean)) {
-                afterGetDatas.onAddSuccess();
-            } else {
-                afterGetDatas.onAddFailed("can't save");
-            }
+//        NoteListBean bean = noteDao.getById(noteListBean.getNoteId());
+//        if (bean == null) {
+//
+//            if (noteDao.addNote(noteListBean)) {
+//                afterGetDatas.onAddSuccess();
+//            } else {
+//                afterGetDatas.onAddFailed("can't save");
+//            }
+//        } else {
+//            if (noteDao.updateNote(noteListBean)) {
+//                afterGetDatas.onAddSuccess();
+//            } else {
+//                afterGetDatas.onAddFailed("can't save");
+//            }
+//        }
+        Log.i(TAG, "addToDb: " + noteListBean.getNoteId());
+
+        String isDraft = noteListBean.isDraft() == 1 ? "true" : "false";
+        if (!TextUtils.isEmpty(noteListBean.getNoteId())) {
+            Log.i(TAG, "addToDb: edit");
+            OkHttpUtils.getInstance().postJsonAsy()
+                    .baseURL(UrlValues.EDIT_NOTE)
+                    .params("noteTitle", noteListBean.getTitle())
+                    .params("noteContent", noteListBean.getContent())
+                    .params("isDraft", isDraft)
+                    .params("noteId", noteListBean.getNoteId())
+                    .build()
+                    .execute(new JSONCallback() {
+                        @Override
+                        public void onError(Call call, Exception e) {
+                            Log.i(TAG, "onError: " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onJSON(JSONObject jsonObject) {
+                            Log.i(TAG, "onJSON: " + jsonObject.toString());
+                        }
+                    });
         } else {
-            if (noteDao.updateNote(noteListBean)) {
-                afterGetDatas.onAddSuccess();
-            } else {
-                afterGetDatas.onAddFailed("can't save");
-            }
+            Log.i(TAG, "addToDb: add");
+            OkHttpUtils.getInstance().postJsonAsy()
+                    .baseURL(UrlValues.ADD_NOTE)
+                    .params("noteTitle", noteListBean.getTitle())
+                    .params("noteContent", noteListBean.getContent())
+                    .params("isDraft", isDraft)
+                    .params("userName", AppConfig.USR)
+                    .build()
+                    .execute(new JSONCallback() {
+                        @Override
+                        public void onError(Call call, Exception e) {
+                            Log.i(TAG, "onError: " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onJSON(JSONObject jsonObject) {
+                            Log.i(TAG, "onJSON: " + jsonObject.toString());
+                        }
+                    });
         }
+
 
     }
 
-    @Override
-    public void getData(String noteId) {
-        NoteListBean bean = noteDao.getById(noteId);
-        if (bean != null) {
-            afterGetDatas.onGetDataSuccess(bean);
-        } else {
-            afterGetDatas.onGetDataFailed("failed to get note");
-        }
-    }
+    private static final String TAG = "AddNoteModel";
 }

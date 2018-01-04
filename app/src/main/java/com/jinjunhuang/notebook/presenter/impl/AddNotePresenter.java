@@ -32,19 +32,10 @@ public class AddNotePresenter implements IAddNotePresenter<NoteListBean> {
             }
 
             @Override
-            public void onGetDataSuccess(NoteListBean data) {
-                mView.onGetDataSuccess(data);
-            }
-
-            @Override
             public void onAddFailed(String reason) {
                 mView.onAddFailed(reason);
             }
 
-            @Override
-            public void onGetDataFailed(String reason) {
-                mView.onGetDataFailed(reason);
-            }
         });
     }
 
@@ -52,11 +43,6 @@ public class AddNotePresenter implements IAddNotePresenter<NoteListBean> {
     public void onDestroy() {
         mModel = null;
         mView = null;
-    }
-
-    @Override
-    public void getData(String noteId) {
-        mModel.getData(noteId);
     }
 
     @Override

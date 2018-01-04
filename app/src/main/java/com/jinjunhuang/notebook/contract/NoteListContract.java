@@ -18,6 +18,8 @@ public interface NoteListContract {
         void onDelSuccess();
 
         void onDelFailed(String reason);
+
+        void onFailed();
     }
 
     public interface Model<T> extends IModel {
